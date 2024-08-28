@@ -191,27 +191,52 @@
       font-size: 13px;
       color: rgba(0, 0, 0, 0.2);
     }
+
+    .article-item-wrap:hover .channel-title {
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
   </style>
 </head>
 
 <body>
   <div class="channel-wrap">
-    <div class="article-list fl">
-      <div class="article-item-wrap card fl">
-        <a href="https://www.huxiu.com/article/3406836.html" target="_blank" class="img-wrap">
-          <img src="./src/img/145754383378.jpg" alt="" class="img">
-        </a>
-        <a href="https://www.huxiu.com/article/3406836.html" target="_blank">
-          <h3 class="channel-title two-lines">霸王茶姬创始人成了海底捞军师</h3>
-        </a>
-        <a href="https://www.huxiu.com/article/3406836.html" target="_blank">
-          <div class="bottom-line">
-            <div class="bottom-line__time">2024-08-28 15:36</div>
-          </div>
-        </a>
-      </div>
-    </div>
+    <div class="article-list fl"></div>
   </div>
+
+  <template id="card">
+    <div class="article-item-wrap card fl">
+      <a target="_blank" class="img-wrap">
+        <img src="./src/img/145754383378.jpg" alt="" class="img">
+      </a>
+      <a target="_blank">
+        <h3 class="channel-title two-lines"></h3>
+      </a>
+      <a target="_blank">
+        <div class="bottom-line">
+          <div class="bottom-line__time">2024-08-28 15:36</div>
+        </div>
+      </a>
+    </div>
+  </template>
+
+  <script>
+    const cardTemplate = document.querySelector("#card");
+    const a = cardTemplate.content.querySelectorAll("a");
+    a[0].href = "https://www.huxiu.com/article/3406836.html";
+    a[1].href = "https://www.huxiu.com/article/3406836.html";
+    a[2].href = "https://www.huxiu.com/article/3406836.html";
+
+    const h3 = cardTemplate.content.querySelector("h3");
+    h3.textContent = '霸王茶姬创始人成了海底捞军师'
+
+    const timeEl = cardTemplate.content.querySelector(".bottom-line__time");
+    timeEl.textContent = '2024-08-28 15:36'
+
+    const listEl = document.querySelector(".article-list");
+    const clone = document.importNode(cardTemplate.content, true);
+    listEl.appendChild(clone);
+  </script>
 </body>
 
 </html>
