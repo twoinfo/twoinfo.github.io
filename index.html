@@ -16,7 +16,7 @@
     <template id="card">
       <div class="article-item-wrap card fl">
         <a target="_blank" class="img-wrap">
-          <img src="./src/img/145754383378.jpg" alt="" class="img" />
+          <img alt="" class="img" />
         </a>
         <a target="_blank">
           <h3 class="channel-title two-lines"></h3>
@@ -30,21 +30,35 @@
     </template>
 
     <script>
-      const cardTemplate = document.querySelector('#card')
-      const aEls = cardTemplate.content.querySelectorAll('a')
-      for (const a of aEls) {
-        a.href = 'https://www.huxiu.com/article/3406836.html'
-      }
+      const articles = [
+        {
+          href: 'https://www.huxiu.com/article/3406836.html',
+          title: '霸王茶姬创始人成了海底捞军师',
+          img: 'src/img/145754383378.jpg',
+          dateTime: '2024-08-28 15:36',
+        },
+      ]
 
-      const h3 = cardTemplate.content.querySelector('h3')
-      h3.textContent = '霸王茶姬创始人成了海底捞军师'
+      articles.forEach((article) => {
+        const cardTemplate = document.querySelector('#card')
+        const aEls = cardTemplate.content.querySelectorAll('a')
+        for (const a of aEls) {
+          a.href = article.href
+        }
 
-      const timeEl = cardTemplate.content.querySelector('.bottom-line__time')
-      timeEl.textContent = '2024-08-28 15:36'
+        const img = cardTemplate.content.querySelector('img')
+        img.src = article.img
 
-      const listEl = document.querySelector('.article-list')
-      const clone = document.importNode(cardTemplate.content, true)
-      listEl.appendChild(clone)
+        const h3 = cardTemplate.content.querySelector('h3')
+        h3.textContent = article.title
+
+        const timeEl = cardTemplate.content.querySelector('.bottom-line__time')
+        timeEl.textContent = article.dateTime
+
+        const listEl = document.querySelector('.article-list')
+        const clone = document.importNode(cardTemplate.content, true)
+        listEl.appendChild(clone)
+      })
     </script>
   </body>
 </html>
