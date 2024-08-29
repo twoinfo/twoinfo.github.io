@@ -37,8 +37,15 @@
           img: 'src/img/145754383378.jpg',
           dateTime: '2024-08-28 15:36',
         },
+        {
+          href: 'https://www.huxiu.com/article/3409514.html',
+          title: '没想到房子老龄化的程度会这么严重',
+          img: 'src/img/3409514-mj-2.png',
+          dateTime: '2024-08-29 09:01',
+        },
       ]
 
+      articles.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime))
       articles.forEach((article) => {
         const cardTemplate = document.querySelector('#card')
         const aEls = cardTemplate.content.querySelectorAll('a')
