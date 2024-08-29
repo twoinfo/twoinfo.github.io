@@ -1,232 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="./favicon.ico" />
+    <title>twoinfo</title>
+    <style>
+      abbr,
+      address,
+      article,
+      aside,
+      audio,
+      b,
+      blockquote,
+      body,
+      canvas,
+      caption,
+      cite,
+      code,
+      dd,
+      del,
+      details,
+      dfn,
+      div,
+      dl,
+      dt,
+      em,
+      fieldset,
+      figcaption,
+      figure,
+      footer,
+      form,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      header,
+      hgroup,
+      html,
+      i,
+      iframe,
+      img,
+      ins,
+      kbd,
+      label,
+      legend,
+      li,
+      mark,
+      menu,
+      nav,
+      object,
+      ol,
+      p,
+      pre,
+      q,
+      samp,
+      section,
+      small,
+      span,
+      strong,
+      sub,
+      summary,
+      sup,
+      table,
+      tbody,
+      td,
+      tfoot,
+      th,
+      thead,
+      time,
+      tr,
+      ul,
+      var,
+      video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        outline: 0;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+      }
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="./favicon.ico">
-  <title>twoinfo</title>
-  <style>
-    abbr,
-    address,
-    article,
-    aside,
-    audio,
-    b,
-    blockquote,
-    body,
-    canvas,
-    caption,
-    cite,
-    code,
-    dd,
-    del,
-    details,
-    dfn,
-    div,
-    dl,
-    dt,
-    em,
-    fieldset,
-    figcaption,
-    figure,
-    footer,
-    form,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    header,
-    hgroup,
-    html,
-    i,
-    iframe,
-    img,
-    ins,
-    kbd,
-    label,
-    legend,
-    li,
-    mark,
-    menu,
-    nav,
-    object,
-    ol,
-    p,
-    pre,
-    q,
-    samp,
-    section,
-    small,
-    span,
-    strong,
-    sub,
-    summary,
-    sup,
-    table,
-    tbody,
-    td,
-    tfoot,
-    th,
-    thead,
-    time,
-    tr,
-    ul,
-    var,
-    video {
-      margin: 0;
-      padding: 0;
-      border: 0;
-      outline: 0;
-      -webkit-box-sizing: border-box;
-      box-sizing: border-box;
-    }
+      .channel-wrap {
+        width: 1094px;
+        margin: 10px auto 0;
+      }
 
-    .channel-wrap {
-      width: 1094px;
-      margin: 10px auto 0;
-    }
+      .article-list {
+        width: 1094px;
+      }
 
-    .article-list {
-      width: 1094px;
-    }
+      .fl {
+        float: left;
+      }
 
-    .fl {
-      float: left;
-    }
+      .article-list .card {
+        margin-bottom: 30px;
+        margin-top: 16px;
+        margin-right: 25px;
+        width: 255px;
+        position: relative;
+      }
 
-    .article-list .card {
-      margin-bottom: 30px;
-      margin-top: 16px;
-      margin-right: 25px;
-      width: 255px;
-      position: relative;
-    }
+      .img-wrap {
+        height: 145px;
+        position: relative;
+        padding-bottom: 10px;
+        box-sizing: content-box;
+        width: 255px;
+        display: block;
+      }
 
-    .img-wrap {
-      height: 145px;
-      position: relative;
-      padding-bottom: 10px;
-      box-sizing: content-box;
-      width: 255px;
-      display: block;
-    }
+      a,
+      a:active,
+      a:hover,
+      a:link,
+      a:visited {
+        color: #27282d;
+        text-decoration: none;
+        outline: none;
+      }
 
-    a,
-    a:active,
-    a:hover,
-    a:link,
-    a:visited {
-      color: #27282d;
-      text-decoration: none;
-      outline: none;
-    }
+      a {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        vertical-align: baseline;
+        background: transparent;
+        text-decoration: none;
+        color: #27282d;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+      }
 
-    a {
-      margin: 0;
-      padding: 0;
-      border: 0;
-      font-size: 100%;
-      vertical-align: baseline;
-      background: transparent;
-      text-decoration: none;
-      color: #27282d;
-      -webkit-box-sizing: border-box;
-      box-sizing: border-box;
-    }
+      .img-wrap .img {
+        width: 100%;
+        height: 100%;
+        -o-object-fit: cover;
+        object-fit: cover;
+      }
 
-    .img-wrap .img {
-      width: 100%;
-      height: 100%;
-      -o-object-fit: cover;
-      object-fit: cover;
-    }
+      img {
+        vertical-align: top;
+        border: none;
+      }
 
-    img {
-      vertical-align: top;
-      border: none;
-    }
+      .channel-title {
+        height: 51px;
+        font-size: 16px;
+        font-weight: 500;
+        color: rgb(39, 40, 45);
+        line-height: 26px;
+      }
 
-    .channel-title {
-      height: 51px;
-      font-size: 16px;
-      font-weight: 500;
-      color: rgb(39, 40, 45);
-      line-height: 26px;
-    }
+      .two-lines {
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        word-break: break-all;
+      }
 
-    .two-lines {
-      -webkit-line-clamp: 2;
-      line-clamp: 2;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      -o-text-overflow: ellipsis;
-      text-overflow: ellipsis;
-      word-break: break-all;
-    }
+      .bottom-line {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+      }
 
-    .bottom-line {
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-      justify-content: space-between;
-    }
+      .bottom-line__time {
+        font-size: 13px;
+        color: rgba(0, 0, 0, 0.2);
+      }
 
-    .bottom-line__time {
-      font-size: 13px;
-      color: rgba(0, 0, 0, 0.2);
-    }
+      .article-item-wrap:hover .channel-title {
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+    </style>
+  </head>
 
-    .article-item-wrap:hover .channel-title {
-      text-decoration: underline;
-      text-underline-offset: 2px;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="channel-wrap">
-    <div class="article-list fl"></div>
-  </div>
-
-  <template id="card">
-    <div class="article-item-wrap card fl">
-      <a target="_blank" class="img-wrap">
-        <img src="./src/img/145754383378.jpg" alt="" class="img">
-      </a>
-      <a target="_blank">
-        <h3 class="channel-title two-lines"></h3>
-      </a>
-      <a target="_blank">
-        <div class="bottom-line">
-          <div class="bottom-line__time">2024-08-28 15:36</div>
-        </div>
-      </a>
+  <body>
+    <div class="channel-wrap">
+      <div class="article-list fl"></div>
     </div>
-  </template>
 
-  <script>
-    const cardTemplate = document.querySelector("#card");
-    const a = cardTemplate.content.querySelectorAll("a");
-    a[0].href = "https://www.huxiu.com/article/3406836.html";
-    a[1].href = "https://www.huxiu.com/article/3406836.html";
-    a[2].href = "https://www.huxiu.com/article/3406836.html";
+    <template id="card">
+      <div class="article-item-wrap card fl">
+        <a target="_blank" class="img-wrap">
+          <img src="./src/img/145754383378.jpg" alt="" class="img" />
+        </a>
+        <a target="_blank">
+          <h3 class="channel-title two-lines"></h3>
+        </a>
+        <a target="_blank">
+          <div class="bottom-line">
+            <div class="bottom-line__time"></div>
+          </div>
+        </a>
+      </div>
+    </template>
 
-    const h3 = cardTemplate.content.querySelector("h3");
-    h3.textContent = '霸王茶姬创始人成了海底捞军师'
+    <script>
+      const cardTemplate = document.querySelector('#card')
+      const aEls = cardTemplate.content.querySelectorAll('a')
+      for (const a of aEls) {
+        a.href = 'https://www.huxiu.com/article/3406836.html'
+      }
 
-    const timeEl = cardTemplate.content.querySelector(".bottom-line__time");
-    timeEl.textContent = '2024-08-28 15:36'
+      const h3 = cardTemplate.content.querySelector('h3')
+      h3.textContent = '霸王茶姬创始人成了海底捞军师'
 
-    const listEl = document.querySelector(".article-list");
-    const clone = document.importNode(cardTemplate.content, true);
-    listEl.appendChild(clone);
-  </script>
-</body>
+      const timeEl = cardTemplate.content.querySelector('.bottom-line__time')
+      timeEl.textContent = '2024-08-28 15:36'
 
+      const listEl = document.querySelector('.article-list')
+      const clone = document.importNode(cardTemplate.content, true)
+      listEl.appendChild(clone)
+    </script>
+  </body>
 </html>
