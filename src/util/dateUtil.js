@@ -10,6 +10,17 @@ export function prevDate(date, amount = 1) {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate() - amount)
 }
 
+export function toDate(date) {
+  return isDate(date) ? new Date(date) : null
+}
+
+function isDate(date) {
+  if (date === null || date === undefined) return false
+  if (isNaN(new Date(date).getTime())) return false
+  if (Array.isArray(date)) return false // deal with `new Date([ new Date() ]) -> new Date()`
+  return true
+}
+
 /**
  *
  * @param {Date} date

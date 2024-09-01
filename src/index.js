@@ -1,9 +1,43 @@
 import { format } from './util/dateUtil.js'
 
+const loadedDates = []
+
 main()
 
 function main() {
   loadArticles(new Date())
+}
+
+// 监听滚动事件
+window.addEventListener('scroll', function () {
+  // 检查是否已滚动到页面底部
+  if (checkScrollBottom()) {
+    // 加载数据的函数
+    loadMoreData()
+  }
+})
+
+// 检查是否滚动到底部的函数
+function checkScrollBottom() {
+  // 页面当前高度 + 窗口可视区域高度 >= 文档高度
+  return (
+    document.documentElement.scrollHeight -
+      (window.innerHeight + document.documentElement.scrollTop) <
+    10
+  )
+}
+
+// 加载数据的函数
+function loadMoreData() {
+  // 这里是模拟数据加载的过程
+  console.log('加载更多数据...')
+  // 实际中，你可能会发起一个AJAX请求来获取数据，然后更新DOM
+  // $.ajax({
+  //     url: 'your-api-endpoint',
+  //     success: function(data) {
+  //         // 更新DOM
+  //     }
+  // });
 }
 
 function appendArticleEl(article) {
@@ -32,7 +66,13 @@ function appendArticleEl(article) {
  * @param {Date} date
  */
 function loadArticles(date) {
-  const dataDir = `config/article/${format(date, 'yyyy/mm/dd')}`
+  date = format(date, 'yyyy/mm/dd')
+  if (loadedDates.indexOf(date) > -1) {
+    return
+  }
+  loadedDates.push(date)
+
+  const dataDir = `config/article/${date}`
   fetch(`${dataDir}/data.json`)
     .then((response) => response.json())
     .then((articles) => {
