@@ -7,7 +7,13 @@ export function format(date, template = 'yyyy/mm/dd') {
 }
 
 export function prevDate(date, amount = 1) {
+  date = toDate(date)
   return new Date(date.getFullYear(), date.getMonth(), date.getDate() - amount)
+}
+
+export function nextDate(date, amount = 1) {
+  date = toDate(date)
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate() + amount)
 }
 
 export function toDate(date) {

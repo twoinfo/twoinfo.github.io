@@ -1,21 +1,21 @@
-import { format } from './util/dateUtil.js'
+import { format, prevDate } from './util/dateUtil.js'
 
 const loadedDates = []
 
 main()
 
 function main() {
+  window.addEventListener('scroll', function () {
+    if (checkScrollBottom()) {
+      loadArticles(getPrevDate())
+    }
+  })
   loadArticles(new Date())
 }
 
-// 监听滚动事件
-window.addEventListener('scroll', function () {
-  // 检查是否已滚动到页面底部
-  if (checkScrollBottom()) {
-    // 加载数据的函数
-    loadMoreData()
-  }
-})
+function getPrevDate() {
+  return prevDate(loadedDates[0])
+}
 
 // 检查是否滚动到底部的函数
 function checkScrollBottom() {
@@ -65,22 +65,23 @@ function appendArticleEl(article) {
  *
  * @param {Date} date
  */
-function loadArticles(date) {
+async function loadArticles(date) {
   date = format(date, 'yyyy/mm/dd')
   if (loadedDates.indexOf(date) > -1) {
     return
   }
-  loadedDates.push(date)
+  loadedDates.unshift(date)
 
   const dataDir = `config/article/${date}`
-  fetch(`${dataDir}/data.json`)
-    .then((response) => response.json())
-    .then((articles) => {
-      articles.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime))
-      articles.forEach((article) => {
-        article.dataDir = dataDir
-        appendArticleEl(article)
-      })
-    })
-    .catch((error) => console.error(error))
+  const res = await fetch(`${dataDir}/data.json`)
+  if (res.status === 404) {
+    loadArticles(getPrevDate())
+    return
+  }
+  const articles = await res.json()
+  articles.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime))
+  articles.forEach((article) => {
+    article.dataDir = dataDir
+    appendArticleEl(article)
+  })
 }
