@@ -10,15 +10,16 @@ async function main() {
     'scroll',
     debounce(async () => {
       if (checkScrollBottom()) {
-        for (let i = 0; i < 7; i++) {
-          const date = loadedDates[0]
-          await loadArticles(prevDate(date, i))
+        const beginDate = loadedDates[0]
+        for (let i = 1; i <= 7; i++) {
+          await loadArticles(prevDate(beginDate, i))
         }
       }
     })
   )
+  const today = new Date()
   for (let i = 0; i < 7; i++) {
-    await loadArticles(prevDate(new Date(), i))
+    await loadArticles(prevDate(today, i))
   }
 }
 
