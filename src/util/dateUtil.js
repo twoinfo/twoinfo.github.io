@@ -1,0 +1,45 @@
+const REGEX_FORMAT = /y{1,4}|m{1,4}|d{1,2}|H{1,2}|M{1,2}S{1,2}/g
+
+export function format(date, template = 'yyyy/mm/dd') {
+  const detail = getDateDetail(date)
+  const matches = getMatches(detail)
+  return template.replace(REGEX_FORMAT, (match) => matches[match])
+}
+
+/**
+ *
+ * @param {Date} date
+ * @returns
+ */
+function getDateDetail(date) {
+  return {
+    year: date.getFullYear(),
+    month: date.getMonth() + 1,
+    date: date.getDate(),
+    hours: date.getHours(),
+    minutes: date.getMinutes(),
+    seconds: date.getSeconds(),
+  }
+}
+
+function getMatches({ year, month, date, hours, minutes, seconds }) {
+  return {
+    yyyy: year,
+    yy: String(year).slice(-2),
+    mm: patchZero(month),
+    m: month,
+    dd: patchZero(date),
+    d: date,
+    HH: patchZero(hours),
+    H: hours,
+    MM: patchZero(minutes),
+    M: minutes,
+    SS: patchZero(seconds),
+    S: seconds,
+  }
+}
+
+function patchZero(num) {
+  return num < 10 ? '0' + num : num
+}
+console.log(format(new Date(), 'yyyy-mm-dd'))
