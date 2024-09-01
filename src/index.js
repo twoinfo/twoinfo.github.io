@@ -74,4 +74,8 @@ async function loadArticles(date) {
     article.dataDir = dataDir
     appendArticleEl(article)
   })
+  if (loadedDates.length >= 7) {
+    return
+  }
+  loadArticles(prevDate(loadedDates[0]))
 }
