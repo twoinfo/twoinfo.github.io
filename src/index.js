@@ -5,20 +5,20 @@ const loadedDates = []
 
 main()
 
-function main() {
+async function main() {
   window.addEventListener(
     'scroll',
-    debounce(function () {
+    debounce(async () => {
       if (checkScrollBottom()) {
         for (let i = 0; i < 7; i++) {
           const date = loadedDates[0]
-          loadArticles(prevDate(date, i))
+          await loadArticles(prevDate(date, i))
         }
       }
     })
   )
   for (let i = 0; i < 7; i++) {
-    loadArticles(prevDate(new Date(), i))
+    await loadArticles(prevDate(new Date(), i))
   }
 }
 
@@ -66,6 +66,9 @@ async function loadArticles(date) {
 
   const dataDir = `config/article/${date}`
   const res = await fetch(`${dataDir}/data.json`)
+  if (res.status === 404) {
+    return
+  }
   const articles = await res.json()
   articles.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime))
   articles.forEach((article) => {
