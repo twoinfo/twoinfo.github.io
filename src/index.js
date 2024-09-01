@@ -1,19 +1,15 @@
 import { format, prevDate } from './util/dateUtil.js'
-import throttle from './util/throttle.js'
 
 const loadedDates = []
 
 main()
 
 function main() {
-  window.addEventListener(
-    'scroll',
-    throttle(function () {
-      if (checkScrollBottom()) {
-        loadArticles(getOldestDate())
-      }
-    })
-  )
+  window.addEventListener('scroll', function () {
+    if (checkScrollBottom()) {
+      loadArticles(getOldestDate())
+    }
+  })
   loadArticles(new Date())
 }
 
