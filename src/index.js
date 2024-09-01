@@ -1,15 +1,19 @@
 import { format, prevDate, toDate } from './util/dateUtil.js'
+import debounce from './util/debounce.js'
 
 const loadedDates = []
 
 main()
 
 function main() {
-  window.addEventListener('scroll', function () {
-    if (checkScrollBottom()) {
-      loadArticles(prevDate(loadedDates[0]))
-    }
-  })
+  window.addEventListener(
+    'scroll',
+    debounce(function () {
+      if (checkScrollBottom()) {
+        loadArticles(prevDate(loadedDates[0]))
+      }
+    })
+  )
   loadArticles(new Date())
 }
 
