@@ -6,6 +6,10 @@ export function format(date, template = 'yyyy/mm/dd') {
   return template.replace(REGEX_FORMAT, (match) => matches[match])
 }
 
+export function prevDate(date, amount = 1) {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate() - amount)
+}
+
 /**
  *
  * @param {Date} date
