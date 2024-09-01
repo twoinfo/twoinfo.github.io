@@ -45,54 +45,33 @@
     </template>
 
     <script type="module">
-      const articles = [
-        {
-          href: 'https://www.huxiu.com/article/3407089.html',
-          title: '半年营收227.46亿，“汾酒速度”背后的增长逻辑',
-          img: 'src/img/163158574156.jpg',
-          dateTime: '2024-08-28 16:56',
-        },
-        {
-          href: 'https://www.huxiu.com/article/3410053.html',
-          title: '对未来越悲观，越不想生孩子吗？',
-          img: 'src/img/173104199442.jpg',
-          dateTime: '2024-08-29 17:42',
-        },
-        {
-          href: 'https://www.huxiu.com/article/3406836.html',
-          title: '霸王茶姬创始人成了海底捞军师',
-          img: 'src/img/145754383378.jpg',
-          dateTime: '2024-08-28 15:36',
-        },
-        {
-          href: 'https://www.huxiu.com/article/3409514.html',
-          title: '没想到房子老龄化的程度会这么严重',
-          img: 'src/img/3409514-mj-2.png',
-          dateTime: '2024-08-29 09:01',
-        },
-      ]
+      fetch('config/articles.json')
+        .then((response) => response.json())
+        .then((articles) => {
+          articles.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime))
+          articles.forEach((article) => {
+            const cardTemplate = document.querySelector('#card')
+            const aEls = cardTemplate.content.querySelectorAll('a')
+            for (const a of aEls) {
+              a.href = article.href
+            }
 
-      articles.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime))
-      articles.forEach((article) => {
-        const cardTemplate = document.querySelector('#card')
-        const aEls = cardTemplate.content.querySelectorAll('a')
-        for (const a of aEls) {
-          a.href = article.href
-        }
+            const img = cardTemplate.content.querySelector('img')
+            img.src = article.img
 
-        const img = cardTemplate.content.querySelector('img')
-        img.src = article.img
+            const h3 = cardTemplate.content.querySelector('h3')
+            h3.textContent = article.title
 
-        const h3 = cardTemplate.content.querySelector('h3')
-        h3.textContent = article.title
+            const timeEl =
+              cardTemplate.content.querySelector('.bottom-line__time')
+            timeEl.textContent = article.dateTime
 
-        const timeEl = cardTemplate.content.querySelector('.bottom-line__time')
-        timeEl.textContent = article.dateTime
-
-        const listEl = document.querySelector('.article-list')
-        const clone = document.importNode(cardTemplate.content, true)
-        listEl.appendChild(clone)
-      })
+            const listEl = document.querySelector('.article-list')
+            const clone = document.importNode(cardTemplate.content, true)
+            listEl.appendChild(clone)
+          })
+        })
+        .catch((error) => console.error(error))
     </script>
   </body>
 </html>
