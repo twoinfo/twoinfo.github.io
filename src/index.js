@@ -29,7 +29,7 @@ function checkScrollBottom() {
   return (
     document.documentElement.scrollHeight -
       (window.innerHeight + document.documentElement.scrollTop) <
-    10
+    400
   )
 }
 
