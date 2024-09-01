@@ -1,4 +1,4 @@
-import { format, prevDate } from './util/dateUtil.js'
+import { format, prevDate, toDate } from './util/dateUtil.js'
 
 const loadedDates = []
 
@@ -7,14 +7,10 @@ main()
 function main() {
   window.addEventListener('scroll', function () {
     if (checkScrollBottom()) {
-      loadArticles(getOldestDate())
+      loadArticles(prevDate(loadedDates[0]))
     }
   })
   loadArticles(new Date())
-}
-
-function getOldestDate() {
-  return prevDate(loadedDates[0])
 }
 
 // 检查是否滚动到底部的函数
@@ -62,11 +58,10 @@ async function loadArticles(date) {
   const dataDir = `config/article/${date}`
   const res = await fetch(`${dataDir}/data.json`)
   if (res.status === 404) {
-    const oldestDate = getOldestDate()
-    if (oldestDate < prevDate(new Date(), 7)) {
+    if (toDate(loadedDates[0]) < prevDate(new Date(), 7)) {
       return
     }
-    loadArticles(getOldestDate())
+    loadArticles(prevDate(loadedDates[0]))
     return
   }
   const articles = await res.json()

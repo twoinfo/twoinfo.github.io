@@ -1,6 +1,7 @@
 const REGEX_FORMAT = /y{1,4}|m{1,4}|d{1,2}|H{1,2}|M{1,2}S{1,2}/g
 
 export function format(date, template = 'yyyy/mm/dd') {
+  date = toDate(date)
   const detail = getDateDetail(date)
   const matches = getMatches(detail)
   return template.replace(REGEX_FORMAT, (match) => matches[match])
