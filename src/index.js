@@ -1,19 +1,23 @@
 import { format, prevDate } from './util/dateUtil.js'
+import throttle from './util/throttle.js'
 
 const loadedDates = []
 
 main()
 
 function main() {
-  window.addEventListener('scroll', function () {
-    if (checkScrollBottom()) {
-      loadArticles(getPrevDate())
-    }
-  })
+  window.addEventListener(
+    'scroll',
+    throttle(function () {
+      if (checkScrollBottom()) {
+        loadArticles(getOldestDate())
+      }
+    })
+  )
   loadArticles(new Date())
 }
 
-function getPrevDate() {
+function getOldestDate() {
   return prevDate(loadedDates[0])
 }
 
@@ -25,19 +29,6 @@ function checkScrollBottom() {
       (window.innerHeight + document.documentElement.scrollTop) <
     10
   )
-}
-
-// 加载数据的函数
-function loadMoreData() {
-  // 这里是模拟数据加载的过程
-  console.log('加载更多数据...')
-  // 实际中，你可能会发起一个AJAX请求来获取数据，然后更新DOM
-  // $.ajax({
-  //     url: 'your-api-endpoint',
-  //     success: function(data) {
-  //         // 更新DOM
-  //     }
-  // });
 }
 
 function appendArticleEl(article) {
@@ -75,7 +66,11 @@ async function loadArticles(date) {
   const dataDir = `config/article/${date}`
   const res = await fetch(`${dataDir}/data.json`)
   if (res.status === 404) {
-    loadArticles(getPrevDate())
+    const oldestDate = getOldestDate()
+    if (oldestDate < prevDate(new Date(), 7)) {
+      return
+    }
+    loadArticles(getOldestDate())
     return
   }
   const articles = await res.json()
