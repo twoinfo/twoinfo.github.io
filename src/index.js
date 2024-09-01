@@ -1,4 +1,10 @@
+import { format } from './util/dateUtil.js'
+
 main()
+
+function main() {
+  loadArticles(new Date())
+}
 
 function appendArticleEl(article) {
   const cardTemplate = document.querySelector('#card')
@@ -8,7 +14,7 @@ function appendArticleEl(article) {
   }
 
   const img = cardTemplate.content.querySelector('img')
-  img.src = article.img
+  img.src = `${article.dataDir}/${article.img}`
 
   const h3 = cardTemplate.content.querySelector('h3')
   h3.textContent = article.title
@@ -21,12 +27,18 @@ function appendArticleEl(article) {
   listEl.appendChild(clone)
 }
 
-function main() {
-  fetch('config/articles.json')
+/**
+ *
+ * @param {Date} date
+ */
+function loadArticles(date) {
+  const dataDir = `config/article/${format(date, 'yyyy/mm/dd')}`
+  fetch(`${dataDir}/data.json`)
     .then((response) => response.json())
     .then((articles) => {
       articles.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime))
       articles.forEach((article) => {
+        article.dataDir = dataDir
         appendArticleEl(article)
       })
     })
