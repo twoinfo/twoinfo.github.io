@@ -10,11 +10,16 @@ function main() {
     'scroll',
     debounce(function () {
       if (checkScrollBottom()) {
-        loadArticles(prevDate(loadedDates[0]))
+        for (let i = 0; i < 7; i++) {
+          const date = loadedDates[0]
+          loadArticles(prevDate(date, i))
+        }
       }
     })
   )
-  loadArticles(new Date())
+  for (let i = 0; i < 7; i++) {
+    loadArticles(prevDate(new Date(), i))
+  }
 }
 
 // 检查是否滚动到底部的函数
@@ -61,21 +66,10 @@ async function loadArticles(date) {
 
   const dataDir = `config/article/${date}`
   const res = await fetch(`${dataDir}/data.json`)
-  if (res.status === 404) {
-    if (toDate(loadedDates[0]) < prevDate(new Date(), 7)) {
-      return
-    }
-    loadArticles(prevDate(loadedDates[0]))
-    return
-  }
   const articles = await res.json()
   articles.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime))
   articles.forEach((article) => {
     article.dataDir = dataDir
     appendArticleEl(article)
   })
-  if (loadedDates.length >= 7) {
-    return
-  }
-  loadArticles(prevDate(loadedDates[0]))
 }
