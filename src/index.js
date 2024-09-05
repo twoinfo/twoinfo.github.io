@@ -66,7 +66,7 @@ async function loadArticles(date) {
   const dataDir = `config/article/${date}`
   const res = await fetch(`${dataDir}/data.json`)
   if (res.status === 404) {
-    console.error(`${dataDir}/data.json does not exist.`)
+    console.warn(`${dataDir}/data.json does not exist.`)
     return
   }
   const articles = await res.json()
