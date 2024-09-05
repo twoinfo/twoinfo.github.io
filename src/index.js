@@ -26,11 +26,7 @@ async function main() {
 // 检查是否滚动到底部的函数
 function checkScrollBottom() {
   // 页面当前高度 + 窗口可视区域高度 >= 文档高度
-  return (
-    document.documentElement.scrollHeight -
-      (window.innerHeight + document.documentElement.scrollTop) <
-    400
-  )
+  return document.documentElement.scrollHeight - (window.innerHeight + document.documentElement.scrollTop) < 400
 }
 
 function appendArticleEl(article) {
@@ -68,6 +64,7 @@ async function loadArticles(date) {
   const dataDir = `config/article/${date}`
   const res = await fetch(`${dataDir}/data.json`)
   if (res.status === 404) {
+    console.error(`${dataDir}/data.json does not exist.`)
     return
   }
   const articles = await res.json()
