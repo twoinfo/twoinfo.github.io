@@ -27,9 +27,7 @@ async function main() {
 function checkScrollBottom() {
   // 页面当前高度 + 窗口可视区域高度 >= 文档高度
   return (
-    document.documentElement.scrollHeight -
-      (window.innerHeight + document.documentElement.scrollTop) <
-    400
+    document.documentElement.scrollHeight - (window.innerHeight + document.documentElement.scrollTop) < 400
   )
 }
 
@@ -55,7 +53,7 @@ function appendArticleEl(article) {
 }
 
 /**
- *
+ * 加载文章
  * @param {Date} date
  */
 async function loadArticles(date) {
@@ -68,6 +66,7 @@ async function loadArticles(date) {
   const dataDir = `config/article/${date}`
   const res = await fetch(`${dataDir}/data.json`)
   if (res.status === 404) {
+    console.warn(`${dataDir}/data.json does not exist.`)
     return
   }
   const articles = await res.json()
