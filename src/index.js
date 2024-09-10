@@ -39,7 +39,12 @@ function appendArticleEl(article) {
   }
 
   const img = cardTemplate.content.querySelector('img')
-  img.src = `${article.dataDir}/${article.img}`
+  const imgName = article.img
+  if (!imgName.startsWith('/')) {
+    img.src = `${article.dataDir}/${article.img}`
+  } else {
+    img.src = imgName
+  }
 
   const h3 = cardTemplate.content.querySelector('h3')
   h3.textContent = article.title
