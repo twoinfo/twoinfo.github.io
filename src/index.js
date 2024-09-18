@@ -54,7 +54,11 @@ function appendArticleEl(article) {
 
   const listEl = document.querySelector('.article-list')
   const clone = document.importNode(cardTemplate.content, true)
-  listEl.appendChild(clone)
+  if (!article.isTop) {
+    listEl.appendChild(clone)
+  }
+  h3.classList.add('top')
+  listEl.prepend(clone)
 }
 
 /**
