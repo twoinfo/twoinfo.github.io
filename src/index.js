@@ -17,6 +17,8 @@ async function main() {
       }
     })
   )
+
+  await loadArticles('top')
   const today = new Date()
   for (let i = 0; i < 7; i++) {
     await loadArticles(prevDate(today, i))
@@ -48,17 +50,16 @@ function appendArticleEl(article) {
 
   const h3 = cardTemplate.content.querySelector('h3')
   h3.textContent = article.title
+  if (article.isTop) {
+    h3.classList.add('top')
+  }
 
   const timeEl = cardTemplate.content.querySelector('.bottom-line__time')
   timeEl.textContent = article.dateTime
 
   const listEl = document.querySelector('.article-list')
   const clone = document.importNode(cardTemplate.content, true)
-  if (!article.isTop) {
-    listEl.appendChild(clone)
-  }
-  h3.classList.add('top')
-  listEl.prepend(clone)
+  listEl.appendChild(clone)
 }
 
 /**
@@ -66,11 +67,13 @@ function appendArticleEl(article) {
  * @param {Date} date
  */
 async function loadArticles(date) {
-  date = format(date, 'yyyy/mm/dd')
-  if (loadedDates.indexOf(date) > -1) {
-    return
+  if (date !== 'top') {
+    date = format(date, 'yyyy/mm/dd')
+    if (loadedDates.indexOf(date) > -1) {
+      return
+    }
+    loadedDates.unshift(date)
   }
-  loadedDates.unshift(date)
 
   const dataDir = `config/article/${date}`
   const res = await fetch(`${dataDir}/data.json`)
@@ -82,6 +85,7 @@ async function loadArticles(date) {
   articles.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime))
   articles.forEach((article) => {
     article.dataDir = dataDir
+    article.isTop = date === 'top'
     appendArticleEl(article)
   })
 }
