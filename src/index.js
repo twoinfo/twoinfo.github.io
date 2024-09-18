@@ -34,13 +34,13 @@ function checkScrollBottom() {
 }
 
 function appendArticleEl(article) {
-  const cardTemplate = document.querySelector('#card')
-  const aEls = cardTemplate.content.querySelectorAll('a')
+  const cardTemplate = document.importNode(document.querySelector('#card').content, true)
+  const aEls = cardTemplate.querySelectorAll('a')
   for (const a of aEls) {
     a.href = article.href
   }
 
-  const img = cardTemplate.content.querySelector('img')
+  const img = cardTemplate.querySelector('img')
   const imgName = article.img
   if (!imgName.startsWith('/')) {
     img.src = `${article.dataDir}/${article.img}`
@@ -48,18 +48,17 @@ function appendArticleEl(article) {
     img.src = imgName
   }
 
-  const h3 = cardTemplate.content.querySelector('h3')
+  const h3 = cardTemplate.querySelector('h3')
   h3.textContent = article.title
   if (article.isTop) {
     h3.classList.add('top')
   }
 
-  const timeEl = cardTemplate.content.querySelector('.bottom-line__time')
+  const timeEl = cardTemplate.querySelector('.bottom-line__time')
   timeEl.textContent = article.dateTime
 
   const listEl = document.querySelector('.article-list')
-  const clone = document.importNode(cardTemplate.content, true)
-  listEl.appendChild(clone)
+  listEl.appendChild(cardTemplate)
 }
 
 /**
