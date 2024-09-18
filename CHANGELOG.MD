@@ -18,35 +18,35 @@
 
 # v0.6.0 (2024-09-11)
 
-**Features**
+### Features
 
 - 新增了文章
 
 # v0.5.0 (2024-09-09)
 
-**Features**
+### Features
 
 - 新增了文章
 
 # v0.4.0 (2024-09-06)
 
-**Features**
+### Features
 
 - 新增了文章
 
 # v0.3.0 (2024-09-04)
 
-**Bug Fixes**
+### Bug Fixes
 
 - 2024/8/28 的两篇文章链接错误
 
-**Features**
+### Features
 
 - 新增了文章
 
 # v0.2.0 (2024-09-02)
 
-**Features**
+### Features
 
 - 重构了数据加载方式，实现滚动加载
 - 新增了文章
