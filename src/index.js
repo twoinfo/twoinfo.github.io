@@ -17,6 +17,8 @@ async function main() {
       }
     })
   )
+
+  await loadArticles('top')
   const today = new Date()
   for (let i = 0; i < 7; i++) {
     await loadArticles(prevDate(today, i))
@@ -32,13 +34,13 @@ function checkScrollBottom() {
 }
 
 function appendArticleEl(article) {
-  const cardTemplate = document.querySelector('#card')
-  const aEls = cardTemplate.content.querySelectorAll('a')
+  const cardTemplate = document.importNode(document.querySelector('#card').content, true)
+  const aEls = cardTemplate.querySelectorAll('a')
   for (const a of aEls) {
     a.href = article.href
   }
 
-  const img = cardTemplate.content.querySelector('img')
+  const img = cardTemplate.querySelector('img')
   const imgName = article.img
   if (!imgName.startsWith('/')) {
     img.src = `${article.dataDir}/${article.img}`
@@ -46,15 +48,17 @@ function appendArticleEl(article) {
     img.src = imgName
   }
 
-  const h3 = cardTemplate.content.querySelector('h3')
+  const h3 = cardTemplate.querySelector('h3')
   h3.textContent = article.title
+  if (article.isTop) {
+    h3.classList.add('top')
+  }
 
-  const timeEl = cardTemplate.content.querySelector('.bottom-line__time')
+  const timeEl = cardTemplate.querySelector('.bottom-line__time')
   timeEl.textContent = article.dateTime
 
   const listEl = document.querySelector('.article-list')
-  const clone = document.importNode(cardTemplate.content, true)
-  listEl.appendChild(clone)
+  listEl.appendChild(cardTemplate)
 }
 
 /**
@@ -62,11 +66,13 @@ function appendArticleEl(article) {
  * @param {Date} date
  */
 async function loadArticles(date) {
-  date = format(date, 'yyyy/mm/dd')
-  if (loadedDates.indexOf(date) > -1) {
-    return
+  if (date !== 'top') {
+    date = format(date, 'yyyy/mm/dd')
+    if (loadedDates.indexOf(date) > -1) {
+      return
+    }
+    loadedDates.unshift(date)
   }
-  loadedDates.unshift(date)
 
   const dataDir = `config/article/${date}`
   const res = await fetch(`${dataDir}/data.json`)
@@ -78,6 +84,7 @@ async function loadArticles(date) {
   articles.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime))
   articles.forEach((article) => {
     article.dataDir = dataDir
+    article.isTop = date === 'top'
     appendArticleEl(article)
   })
 }
