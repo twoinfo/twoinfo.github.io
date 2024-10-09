@@ -115,6 +115,7 @@ video {
   opacity: 0;
   visibility: hidden;
   display: block;
+  border-radius: 10px;
 }
 
 .img-wrap {
