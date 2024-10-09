@@ -1,3 +1,9 @@
+# v1.8.0 (2024-10-09)
+
+### Features
+
+- 添加赞赏码([#1](https://github.com/twoinfo/twoinfo.github.io/issues/1)) ([208803e](https://github.com/twoinfo/twoinfo.github.io/commit/208803ed1539ce47eed8d8b40f6e011e447f261b))
+
 # v1.7.0 (2024-10-09)
 
 ### Features
