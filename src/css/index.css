@@ -96,6 +96,27 @@ video {
   position: relative;
 }
 
+.zanshang:hover {
+  cursor: default;
+  .zanshang-img {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.zanshang-img {
+  transition: all 0.3s ease-in;
+  cursor: pointer;
+  width: 300px;
+  height: 300px;
+  position: absolute;
+  top: 40px;
+  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  visibility: hidden;
+  display: block;
+}
+
 .img-wrap {
   height: 145px;
   position: relative;
