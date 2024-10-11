@@ -86,10 +86,10 @@ video {
 .dark {
   background-color: #191919;
   .channel-title {
-    color: rgb(163, 163, 163);
+    color: rgb(209, 213, 219);
   }
   .bottom-line__time {
-    color: rgb(163, 163, 163, 0.2);
+    color: rgb(209, 213, 219, 0.3);
   }
 }
 
