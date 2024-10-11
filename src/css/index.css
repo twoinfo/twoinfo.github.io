@@ -154,13 +154,36 @@ body {
   border-radius: 10px;
 }
 
+/* @keyframes zoomIn {
+  0%{
+    transform: scale(1);
+  }
+  30%{
+    transform: scale(1.1);
+  }
+  100%{
+    transform: scale(1);
+  }
+} */
+
 .img-wrap {
   height: 145px;
-  position: relative;
-  padding-bottom: 10px;
-  box-sizing: content-box;
   width: 255px;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 10px;
+  box-sizing: content-box;
   display: block;
+  .img {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    /* &:hover {
+      animation: zoomIn 1s;
+    } */
+  }
 }
 
 a,
@@ -184,14 +207,6 @@ a {
   color: #27282d;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-}
-
-.img-wrap .img {
-  width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-  object-fit: cover;
-  border-radius: 10px;
 }
 
 img {
