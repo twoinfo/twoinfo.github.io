@@ -84,7 +84,7 @@ video {
   height: 1.5rem;
 }
 .dark {
-  background-color: #191919;
+  background-color: rgb(17, 24, 39);
   .channel-title {
     color: rgb(209, 213, 219);
   }
