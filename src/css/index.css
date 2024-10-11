@@ -92,7 +92,9 @@ video {
     color: rgb(209, 213, 219, 0.3);
   }
 }
-
+* {
+  transition: all 0.3s ease-in;
+}
 body {
   .dark-icon {
     display: block;
