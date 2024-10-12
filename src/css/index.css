@@ -165,7 +165,11 @@ body {
     transform: scale(1);
   }
 }
-
+.article-link:hover {
+  img {
+    transform: scale(1.3);
+  }
+}
 .img-wrap {
   height: 145px;
   width: 255px;
@@ -180,11 +184,6 @@ body {
     height: 100%;
     -o-object-fit: cover;
     object-fit: cover;
-    /* transition: transform 0.1s; */
-    &:hover {
-      /* animation: zoomIn 1s; */
-      transform: scale(1.3);
-    }
   }
 }
 
