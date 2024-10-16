@@ -10,18 +10,26 @@ async function main() {
     'scroll',
     debounce(async () => {
       if (checkScrollBottom()) {
-        const beginDate = loadedDates[0]
-        for (let i = 1; i <= 7; i++) {
-          await loadArticles(prevDate(beginDate, i))
+        let currentDate = loadedDates[0]
+        let count = 0
+        while (count < 5) {
+          currentDate = prevDate(currentDate)
+          const articles = await loadArticles(currentDate)
+          count += articles ? articles.length : 0
         }
       }
     })
   )
 
-  await loadArticles('top')
-  const today = new Date()
-  for (let i = 0; i < 7; i++) {
-    await loadArticles(prevDate(today, i))
+  const topArticles = await loadArticles()
+  let initCount = topArticles ? topArticles.length : 0
+
+  const initSize = 24
+  let currentLoadDate = new Date()
+  while (initCount < initSize) {
+    currentLoadDate = prevDate(currentLoadDate)
+    const dateArticles = await loadArticles(currentLoadDate)
+    initCount += dateArticles ? dateArticles.length : 0
   }
 }
 
@@ -64,12 +72,14 @@ function appendArticleEl(article) {
 /**
  * 加载文章
  * @param {Date} date
+ * @returns {Promise<null|object[]>}
  */
-async function loadArticles(date) {
+async function loadArticles(date = null) {
+  date = date ? date : 'top'
   if (date !== 'top') {
     date = format(date, 'yyyy/mm/dd')
     if (loadedDates.indexOf(date) > -1) {
-      return
+      return null
     }
     loadedDates.unshift(date)
   }
@@ -78,7 +88,7 @@ async function loadArticles(date) {
   const res = await fetch(`${dataDir}/data.json`)
   if (res.status === 404) {
     console.warn(`${dataDir}/data.json does not exist.`)
-    return
+    return null
   }
   const articles = await res.json()
   articles.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime))
@@ -87,4 +97,5 @@ async function loadArticles(date) {
     article.isTop = date === 'top'
     appendArticleEl(article)
   })
+  return articles
 }
