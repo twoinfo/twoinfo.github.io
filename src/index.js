@@ -9,13 +9,19 @@ async function main() {
   window.addEventListener(
     'scroll',
     debounce(async () => {
-      if (checkScrollBottom()) {
-        let currentDate = loadedDates[0]
-        let count = 0
-        while (count < 5) {
-          currentDate = prevDate(currentDate)
-          const articles = await loadArticles(currentDate)
-          count += articles ? articles.length : 0
+      if (!checkScrollBottom()) {
+        return
+      }
+      let currentDate = loadedDates[0]
+      let count = 0
+      let requestCount = 0
+      while (count < 5) {
+        currentDate = prevDate(currentDate)
+        const articles = await loadArticles(currentDate)
+        count += articles ? articles.length : 0
+        requestCount++
+        if (requestCount > 7) {
+          break
         }
       }
     })
