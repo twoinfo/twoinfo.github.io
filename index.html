@@ -27,7 +27,9 @@
           bodyEl.classList.remove('dark')
         }
       }
-      console.log('hostname:', location.hostname)
+      if (location.hostname.toLowerCase === 'twoinfo.github.io') {
+        location = 'panseei.com'
+      }
     </script>
   </head>
 
@@ -43,6 +45,7 @@
             <span>对我有用</span>
             <img class="zanshang-img" src="/src/img/zanshang.jpg" alt="" />
           </li>
+          <li>111</li>
         </ul>
       </div>
       <div>
