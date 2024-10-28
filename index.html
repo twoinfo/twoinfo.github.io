@@ -6,6 +6,18 @@
     <link rel="icon" href="./favicon.ico" />
     <link rel="stylesheet" href="./src/css/index.css" />
     <title>TwoInfo</title>
+    <style>
+      .beian-num {
+        font-size: 12px;
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        background-color: rgb(17, 24, 39);
+        a {
+          color: #848484;
+        }
+      }
+    </style>
     <script>
       function setDarkMode(isDark) {
         const bodyEl = document.querySelector('body')
@@ -71,6 +83,9 @@
     </div>
     <div class="channel-wrap">
       <div class="article-list fl"></div>
+    </div>
+    <div class="beian-num">
+      <a href="https://beian.miit.gov.cn/" target="_blank">苏ICP备2024138179号</a>
     </div>
 
     <template id="card">
