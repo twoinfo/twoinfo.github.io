@@ -56,10 +56,10 @@ function appendArticleEl(article) {
 
   const img = cardTemplate.querySelector('img')
   const imgName = article.img
-  if (imgName.startsWith('/') || imgName.startsWith('http')) {
-    img.src = imgName
+  if (!imgName.startsWith('/')) {
+    img.src = `${article.dataDir}/${article.img}`
   } else {
-    img.src = `${article.dataDir}/${imgName}`
+    img.src = imgName
   }
 
   const h3 = cardTemplate.querySelector('h3')
